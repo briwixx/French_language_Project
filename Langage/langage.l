@@ -19,6 +19,7 @@ Cos|COS|cos { return COS;  }
 un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }
 trois   { yylval.valeur = 3. ; return NUM; }
+quatre   { yylval.valeur = 4. ; return NUM; }
 plus    { return '+';}
 fois    { return '*'; }
 Si      { return SI;}
