@@ -19,12 +19,12 @@ Cos|COS|cos { return COS;  }
 un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }
 trois   { yylval.valeur = 3. ; return NUM; }
-plus    { return '+';}
+plus    { return '+'; }
 fois    { return '*'; }
-Si      { return SI;}
-Alors   { return ALORS;}
-Sinon   { return SINON;}
-FinSi   { return FINSI;}
+Si      { return SI; }
+Alors   { return ALORS; }
+Sinon   { return SINON; }
+FinSi   { return FINSI; }
 
 [A-Za-z_][A-Za-z_0-9]* { strcpy( yylval.nom, yytext) ;  return VAR; }
 
@@ -37,6 +37,6 @@ FinSi   { return FINSI;}
 \(     {  return '('; }
 \)     {  return ')'; }
 <<EOF>>  { printf("\nLe programme est correct!\n"); return 0; }
-.      {  printf ("Erreur lexicale : %s\n", yytext); return 0; }
+.        {  printf ("Erreur lexicale : %s\n", yytext); return 0; }
 
 %%
