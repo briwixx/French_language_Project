@@ -62,7 +62,11 @@ extern int yydebug;
     ALORS = 263,                   /* ALORS  */
     SINON = 264,                   /* SINON  */
     FINSI = 265,                   /* FINSI  */
-    SUP = 266                      /* SUP  */
+    SUP = 266,                     /* SUP  */
+    ADD = 267,                     /* ADD  */
+    SUB = 268,                     /* SUB  */
+    MULT = 269,                    /* MULT  */
+    DIV = 270                      /* DIV  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -71,12 +75,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 21 "langage.y"
+#line 45 "langage.y"
 
   double valeur;
   char nom[50];
 
-#line 80 "langage.bison.hpp"
+#line 84 "langage.bison.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

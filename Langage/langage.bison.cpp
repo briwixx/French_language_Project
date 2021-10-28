@@ -73,7 +73,9 @@
   #include <stdlib.h>
   #include <cmath>   
   #include <map>
+  #include <vector>
   #include <string>
+  #include <iostream>
 
   using namespace std;
 
@@ -82,12 +84,34 @@
   extern FILE* yyin;
   int yyerror(char *s);
 
+  class instruction{
+  public:
+    instruction (const int &c, const double &v=0, const string &n="") {code = c; value = v; name = n;};  
+    int code; 
+    double value;     // éventuellement une valeur si besoin
+    string name;      // ou une référence pour la table des données 
+  };
+
   // Déclaration de la map qui associe
   // les noms des variables à leur valeur
+  // (La table de symboles)
   map<string,double> variables ;
 
+  // Structure pour accueillir le code généré 
+  // (sone de code ou code machine ou assembleur)
+  vector <instruction> code_genere;    
+  int ic = 0; // compteur instruction
 
-#line 91 "langage.bison.cpp"
+  // Remarquez les paramètres par défaut pour faciliter les appels depuis la grammaire
+  int add_instruction(const int &c, const double &v=0, const string &n="") {
+      code_genere.push_back(instruction(c,v,n)); 
+      ic++;
+      return 0; 
+   }; 
+
+
+
+#line 115 "langage.bison.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -127,10 +151,10 @@ enum yysymbol_kind_t
   YYSYMBOL_SINON = 9,                      /* SINON  */
   YYSYMBOL_FINSI = 10,                     /* FINSI  */
   YYSYMBOL_SUP = 11,                       /* SUP  */
-  YYSYMBOL_12_ = 12,                       /* '+'  */
-  YYSYMBOL_13_ = 13,                       /* '-'  */
-  YYSYMBOL_14_ = 14,                       /* '*'  */
-  YYSYMBOL_15_ = 15,                       /* '/'  */
+  YYSYMBOL_ADD = 12,                       /* ADD  */
+  YYSYMBOL_SUB = 13,                       /* SUB  */
+  YYSYMBOL_MULT = 14,                      /* MULT  */
+  YYSYMBOL_DIV = 15,                       /* DIV  */
   YYSYMBOL_16_n_ = 16,                     /* '\n'  */
   YYSYMBOL_17_ = 17,                       /* '='  */
   YYSYMBOL_18_ = 18,                       /* '('  */
@@ -478,7 +502,7 @@ union yyalloc
 #define YYNSTATES  44
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   266
+#define YYMAXUTOK   270
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -496,7 +520,7 @@ static const yytype_int8 yytranslate[] =
       16,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      18,    19,    14,    12,     2,    13,     2,    15,     2,     2,
+      18,    19,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,    17,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -518,15 +542,16 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    41,    41,    42,    44,    45,    46,    47,    54,    55,
-      56,    57,    58,    59,    60,    61,    62
+       0,    65,    65,    66,    68,    69,    70,    71,    78,    79,
+      80,    81,    82,    83,    84,    85,    86
 };
 #endif
 
@@ -543,8 +568,8 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "NUM", "VAR", "SIN",
-  "COS", "SI", "ALORS", "SINON", "FINSI", "SUP", "'+'", "'-'", "'*'",
-  "'/'", "'\\n'", "'='", "'('", "')'", "$accept", "bloc", "instruction",
+  "COS", "SI", "ALORS", "SINON", "FINSI", "SUP", "ADD", "SUB", "MULT",
+  "DIV", "'\\n'", "'='", "'('", "')'", "$accept", "bloc", "instruction",
   "expr", YY_NULLPTR
 };
 
@@ -1117,79 +1142,79 @@ yyreduce:
   switch (yyn)
     {
   case 5: /* instruction: expr  */
-#line 45 "langage.y"
+#line 69 "langage.y"
                            { printf ("\n"); }
-#line 1123 "langage.bison.cpp"
+#line 1148 "langage.bison.cpp"
     break;
 
   case 6: /* instruction: VAR '=' expr  */
-#line 46 "langage.y"
+#line 70 "langage.y"
                            {  }
-#line 1129 "langage.bison.cpp"
+#line 1154 "langage.bison.cpp"
     break;
 
   case 7: /* instruction: SI '(' expr SUP expr ')' '\n' ALORS '\n' bloc SINON '\n' bloc FINSI  */
-#line 52 "langage.y"
+#line 76 "langage.y"
                                   {  }
-#line 1135 "langage.bison.cpp"
+#line 1160 "langage.bison.cpp"
     break;
 
   case 8: /* expr: NUM  */
-#line 54 "langage.y"
-                         { printf ("%g ",(yyvsp[0].valeur));  }
-#line 1141 "langage.bison.cpp"
+#line 78 "langage.y"
+                         { add_instruction (NUM, (yyvsp[0].valeur));   }
+#line 1166 "langage.bison.cpp"
     break;
 
   case 9: /* expr: VAR  */
-#line 55 "langage.y"
+#line 79 "langage.y"
                          {  }
-#line 1147 "langage.bison.cpp"
+#line 1172 "langage.bison.cpp"
     break;
 
   case 10: /* expr: SIN '(' expr ')'  */
-#line 56 "langage.y"
+#line 80 "langage.y"
                          {  }
-#line 1153 "langage.bison.cpp"
+#line 1178 "langage.bison.cpp"
     break;
 
   case 11: /* expr: COS '(' expr ')'  */
-#line 57 "langage.y"
+#line 81 "langage.y"
                          {  }
-#line 1159 "langage.bison.cpp"
+#line 1184 "langage.bison.cpp"
     break;
 
   case 12: /* expr: '(' expr ')'  */
-#line 58 "langage.y"
+#line 82 "langage.y"
                          {  }
-#line 1165 "langage.bison.cpp"
+#line 1190 "langage.bison.cpp"
     break;
 
-  case 13: /* expr: expr '+' expr  */
-#line 59 "langage.y"
-                         {  printf ("+ "); }
-#line 1171 "langage.bison.cpp"
+  case 13: /* expr: expr ADD expr  */
+#line 83 "langage.y"
+                         { add_instruction (ADD); }
+#line 1196 "langage.bison.cpp"
     break;
 
-  case 14: /* expr: expr '-' expr  */
-#line 60 "langage.y"
+  case 14: /* expr: expr SUB expr  */
+#line 84 "langage.y"
                          {  }
-#line 1177 "langage.bison.cpp"
+#line 1202 "langage.bison.cpp"
     break;
 
-  case 15: /* expr: expr '*' expr  */
-#line 61 "langage.y"
-                         {  printf ("* ");}
-#line 1183 "langage.bison.cpp"
+  case 15: /* expr: expr MULT expr  */
+#line 85 "langage.y"
+                         { add_instruction (MULT); }
+#line 1208 "langage.bison.cpp"
     break;
 
-  case 16: /* expr: expr '/' expr  */
-#line 62 "langage.y"
+  case 16: /* expr: expr DIV expr  */
+#line 86 "langage.y"
                          {  }
-#line 1189 "langage.bison.cpp"
+#line 1214 "langage.bison.cpp"
     break;
 
 
-#line 1193 "langage.bison.cpp"
+#line 1218 "langage.bison.cpp"
 
       default: break;
     }
@@ -1382,12 +1407,25 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 63 "langage.y"
+#line 87 "langage.y"
 
 
 int yyerror(char *s) {					
     printf("%s : %s\n", s, yytext);
 }
+
+
+
+string print_code(int ins) {
+  switch (ins) {
+    case ADD      : return "ADD";
+    case MULT     : return "MUL";    
+    case NUM      : return "NUM";
+    case VAR      : return "VAR";
+    default : return "";
+  }
+}
+
 
 int main(int argc, char **argv) {
   printf("-----------------\nLangage  V1.0\n");
@@ -1399,6 +1437,12 @@ int main(int argc, char **argv) {
     yyin = stdin;
 
   yyparse();						
+
+  for (auto instruction : code_genere){
+    cout << print_code(instruction.code) << "\t" <<  instruction.value << endl;
+  }
+
+
 
   return 0;
 }

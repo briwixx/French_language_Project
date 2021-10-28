@@ -496,7 +496,7 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "langage.l"
-#line 5 "langage.l"
+#line 4 "langage.l"
   #include <stdio.h>
   #include <stdlib.h>
   #include "langage.bison.hpp"
@@ -718,7 +718,7 @@ YY_DECL
 		}
 
 	{
-#line 10 "langage.l"
+#line 9 "langage.l"
 
 
 #line 724 "langage.lex.cpp"
@@ -780,145 +780,151 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 12 "langage.l"
-{  yylval.valeur = atof(yytext); return NUM; }
+#line 11 "langage.l"
+{ // s'il s'agit d'un nombre on le stocke dans le champ "valeur"
+                                      yylval.valeur = atof(yytext);
+                                      return NUM;
+                                    }
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 13 "langage.l"
+#line 15 "langage.l"
 {  return '\n'; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 14 "langage.l"
+#line 16 "langage.l"
 { }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 15 "langage.l"
+#line 17 "langage.l"
 { }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 16 "langage.l"
+#line 18 "langage.l"
 { }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 17 "langage.l"
+#line 19 "langage.l"
 { return SIN;  }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 18 "langage.l"
+#line 20 "langage.l"
 { return COS;  }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 19 "langage.l"
+#line 21 "langage.l"
 { yylval.valeur = 1. ; return NUM; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 20 "langage.l"
+#line 22 "langage.l"
 { yylval.valeur = 2. ; return NUM; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 21 "langage.l"
+#line 23 "langage.l"
 { yylval.valeur = 3. ; return NUM; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 22 "langage.l"
-{ return '+';}
+#line 24 "langage.l"
+{ return ADD;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 23 "langage.l"
-{ return '*'; }
+#line 25 "langage.l"
+{ return MULT; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 24 "langage.l"
+#line 26 "langage.l"
 { return SI;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 25 "langage.l"
+#line 27 "langage.l"
 { return ALORS;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 26 "langage.l"
+#line 28 "langage.l"
 { return SINON;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 27 "langage.l"
+#line 29 "langage.l"
 { return FINSI;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 29 "langage.l"
-{ strcpy( yylval.nom, yytext) ;  return VAR; }
+#line 31 "langage.l"
+{ // s'il s'agit d'une variable, on stocke son nom dans le champ "nom"
+                         strcpy( yylval.nom, yytext) ;
+                         return VAR;
+                       }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 31 "langage.l"
-{  return yytext[0];  }  // la même chose que return '+'  
+#line 36 "langage.l"
+{  return ADD; }  
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 32 "langage.l"
-{  return '-'; }
+#line 37 "langage.l"
+{  return SUB; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 33 "langage.l"
-{  return '*'; }
+#line 38 "langage.l"
+{  return MULT; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 34 "langage.l"
-{  return '/'; }
+#line 39 "langage.l"
+{  return DIV; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 35 "langage.l"
+#line 40 "langage.l"
 {  return '='; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 36 "langage.l"
+#line 41 "langage.l"
 { return SUP; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 37 "langage.l"
+#line 42 "langage.l"
 {  return '('; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 38 "langage.l"
+#line 43 "langage.l"
 {  return ')'; }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 39 "langage.l"
+#line 44 "langage.l"
 { printf("\nLe programme est correct!\n"); return 0; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 40 "langage.l"
+#line 45 "langage.l"
 {  printf ("Erreur lexicale : %s\n", yytext); return 0; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 42 "langage.l"
+#line 47 "langage.l"
 ECHO;
 	YY_BREAK
-#line 921 "langage.lex.cpp"
+#line 927 "langage.lex.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1921,6 +1927,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 42 "langage.l"
+#line 47 "langage.l"
 
 
