@@ -53,7 +53,16 @@ extern int yydebug;
     ALORS = 263,
     SINON = 264,
     FINSI = 265,
-    SUP = 266
+    SUP = 266,
+    SUPEQ = 267,
+    INF = 268,
+    INFEQ = 269,
+    NOTEQ = 270,
+    ISEQ = 271,
+    ADD = 272,
+    SUB = 273,
+    MULT = 274,
+    DIV = 275
   };
 #endif
 
@@ -62,12 +71,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 21 "langage.y" /* yacc.c:1909  */
+#line 45 "langage.y" /* yacc.c:1909  */
 
   double valeur;
   char nom[50];
 
-#line 71 "langage.bison.hpp" /* yacc.c:1909  */
+#line 80 "langage.bison.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
