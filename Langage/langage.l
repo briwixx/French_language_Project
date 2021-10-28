@@ -34,6 +34,11 @@ FinSi   { return FINSI;}
 "/"    {  return '/'; }
 "="|"<-"    {  return '='; }
 ">"    { return SUP; }
+">="   { return SUPEQ; }
+"<"    { return INF; }
+"<="   { return INFEQ; }
+"!="   { return NOTEQ; }
+"=="   { return ISEQ;}
 \(     {  return '('; }
 \)     {  return ')'; }
 <<EOF>>  { printf("\nLe programme est correct!\n"); return 0; }

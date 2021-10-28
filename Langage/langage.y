@@ -33,6 +33,11 @@
 %token SINON
 %token FINSI
 %token SUP
+%token SUPEQ
+%token INF
+%token INFEQ
+%token NOTEQ
+%token ISEQ
 
 %right '+' '-'
 %left '*' '/'
