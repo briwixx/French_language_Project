@@ -128,8 +128,8 @@ instruction :   /* Epsilon, ligne vide */
               SINON '\n' 
                 bloc                                  
               FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
-                                          code_genere[$1.jmp].value = ic;} 
-
+                                          code_genere[$1.jmp].value = ic;}                  
+ 
 
 
 expr:  NUM               { add_instruction (NUM, $1);   }
@@ -239,7 +239,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             r2 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
 
-            pile.push(r1>r2);
+            pile.push(r1<r2);
             ic++;
           break;
 
@@ -250,7 +250,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             r2 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
 
-            pile.push(r1>=r2);
+            pile.push(r1<=r2);
             ic++;
           break;
 
@@ -261,7 +261,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             r2 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
 
-            pile.push(r1<r2);
+            pile.push(r1>r2);
             ic++;
           break;
 
@@ -272,7 +272,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             r2 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
 
-            pile.push(r1<=r2);
+            pile.push(r1>=r2);
             ic++;
           break;
 

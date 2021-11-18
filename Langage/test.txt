@@ -7,8 +7,7 @@ y = 1
 Imprime x
 Imprime y
 
-@la_bas: 
-
+@la_bas:
 x = tan(5)
 Imprime x
 
