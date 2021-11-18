@@ -1,3 +1,4 @@
+
 GoTo @la_bas
 
 @ici : 
@@ -9,20 +10,17 @@ Imprime y
 
 @la_bas: 
 
-x = 5
-Imprime x
-
-Si (x<4)
+Si (x)
 Alors
 	Si (y)
 	Alors
 		Imprime Une + Condition + Imbriquee
 		Imprime A + cause + du + goto + y + est + nul
 	Sinon
-		Imprime 10-10
+		Imprime 1+2
 	FinSi
 Sinon
-	Imprime 1+6*7
+	Imprime 6*7
 FinSi
 
 GoTo @fin

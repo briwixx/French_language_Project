@@ -28,7 +28,7 @@ Alors   { return ALORS;}
 Sinon   { return SINON;}
 FinSi   { return FINSI;}
 Imprime { return PRINT;}
-GoTo    { return GOTO;} 
+GoTo    { return GOTO;}
 
 @[A-Za-z_][A-Za-z_0-9]* { strcpy( yylval.nom, yytext) ;
                           return LABEL;
@@ -39,7 +39,7 @@ GoTo    { return GOTO;}
                          return VAR;
                        }
 
-\+     {  return ADD; }  
+\+     {  return ADD; }
 "-"    {  return SUB; }
 "*"    {  return MULT; }
 "/"    {  return DIV; }
@@ -48,7 +48,7 @@ GoTo    { return GOTO;}
 "<"    { return INF; }
 ">="   { return SUPEQ; }
 "<="   { return INFEQ; }
-":"    { return ':'; }   
+":"    { return ':'; }
 \(     {  return '('; }
 \)     {  return ')'; }
 <<EOF>>  { printf("\nLe programme est correct!\n"); return 0; }

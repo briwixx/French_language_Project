@@ -46,7 +46,7 @@ extern int yydebug;
         int jmp;  // adresse du jmp
         int jc;  // adrese  du jc
     } type_adresse;
-  
+
 
 #line 52 "langage.bison.hpp" /* yacc.c:1909  */
 
@@ -89,7 +89,7 @@ union YYSTYPE
 
   double valeur;
   char nom[50];
-  type_adresse adresse;  
+  type_adresse adresse;
 
 #line 95 "langage.bison.hpp" /* yacc.c:1909  */
 };
