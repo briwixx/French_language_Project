@@ -27,6 +27,12 @@ Si      { return SI;}
 Alors   { return ALORS;}
 Sinon   { return SINON;}
 FinSi   { return FINSI;}
+Imprime { return PRINT;}
+GoTo    { return GOTO;} 
+
+@[A-Za-z_][A-Za-z_0-9]* { strcpy( yylval.nom, yytext) ;
+                          return LABEL;
+                       }
 
 [A-Za-z_][A-Za-z_0-9]* { // s'il s'agit d'une variable, on stocke son nom dans le champ "nom"
                          strcpy( yylval.nom, yytext) ;
@@ -39,11 +45,7 @@ FinSi   { return FINSI;}
 "/"    {  return DIV; }
 "="|"<-"    {  return '='; }
 ">"    { return SUP; }
-">="   { return SUPEQ; }
-"<"    { return INF; }
-"<="   { return INFEQ; }
-"!="   { return NOTEQ; }
-"=="   { return ISEQ;}
+":"    { return ':'; }   
 \(     {  return '('; }
 \)     {  return ')'; }
 <<EOF>>  { printf("\nLe programme est correct!\n"); return 0; }
