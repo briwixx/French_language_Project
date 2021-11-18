@@ -45,6 +45,9 @@ GoTo    { return GOTO;}
 "/"    {  return DIV; }
 "="|"<-"    {  return '='; }
 ">"    { return SUP; }
+"<"    { return INF; }
+">="   { return SUPEQ; }
+"<="   { return INFEQ; }
 ":"    { return ':'; }   
 \(     {  return '('; }
 \)     {  return ')'; }

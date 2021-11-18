@@ -80,6 +80,9 @@
 %token SINON
 %token FINSI
 %token SUP
+%token SUPEQ
+%token INF
+%token INFEQ
 %token PRINT
 %token ASSIGN
 %token GOTO
@@ -87,7 +90,7 @@
 %token JMP
 %token JMPCOND
 
-%right ADD SUB   // N'oubliez pas de remettre left !
+%left ADD SUB
 %left MULT DIV
 
 %%
@@ -131,13 +134,17 @@ expr:  NUM               { add_instruction (NUM, $1);   }
      | COS '(' expr ')'  {  }
      | '(' expr ')'      {  }
      | expr ADD expr     { add_instruction (ADD); }
-     | expr SUB expr     {  }   		
+     | expr SUB expr     { add_instruction (SUB); }   		
      | expr MULT expr    { add_instruction (MULT); }		
-     | expr DIV expr     {  }   
+     | expr DIV expr     { add_instruction (DIV); }   
 
 
-condition :  expr          {}
-          |  expr SUP expr {}
+condition :  expr             { }
+          |  expr SUP expr    { }
+          |  expr SUPEQ expr  { }
+          |  expr INF expr    { }
+          |  expr INFEQ expr  { }
+
 %%
 
 int yyerror(char *s) {					
@@ -186,6 +193,18 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             pile.push(r1+r2);
             ic++;
           break;
+
+        case SUB:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1-r2);
+            ic++;
+          break;
+        
         case MULT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -194,6 +213,17 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             pile.pop();
 
             pile.push(r1*r2);
+            ic++;
+          break;
+
+        case DIV:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1-r2);
             ic++;
           break;
 
