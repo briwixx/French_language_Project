@@ -9,7 +9,7 @@ Imprime y
 
 @la_bas: 
 
-x = 5
+x = tan(5)
 Imprime x
 
 Si (x<4)

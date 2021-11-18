@@ -75,6 +75,7 @@
 %type <valeur> expr 
 %token SIN
 %token COS
+%token TAN
 %token <adresse> SI
 %token ALORS
 %token SINON
@@ -130,8 +131,9 @@ instruction :   /* Epsilon, ligne vide */
 
 expr:  NUM               { add_instruction (NUM, $1);   }
      | VAR               { add_instruction (VAR, 0, $1);  }
-     | SIN '(' expr ')'  {  }
-     | COS '(' expr ')'  {  }
+     | SIN '(' expr ')'  { add_instruction (SIN); }
+     | COS '(' expr ')'  { add_instruction (COS); }
+     | TAN '(' expr ')'  { add_instruction (TAN); }
      | '(' expr ')'      {  }
      | expr ADD expr     { add_instruction (ADD); }
      | expr SUB expr     { add_instruction (SUB); }   		
@@ -173,7 +175,7 @@ void execution ( const vector <instruction> &code_genere,
                  map<string,double> &variables )
 {
 printf("\n------- Exécution du programme ---------\n");
-stack<int> pile;
+stack<double> pile;
 
 int ic = 0;  // compteur instruction
 double r1, r2;  // des registres
@@ -268,6 +270,30 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             pile.pop();
 
             pile.push(r1<=r2);
+            ic++;
+          break;
+
+        case SIN:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(sin(r1));
+            ic++;
+          break;
+
+        case COS:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(cos(r1));
+            ic++;
+          break;
+
+        case TAN:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(tan(r1));
             ic++;
           break;
 

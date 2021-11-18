@@ -17,7 +17,8 @@
 " "    { }
 \t     { }
 Sin|SIN|sin|sinus|Sinus|SINUS { return SIN;  }
-Cos|COS|cos { return COS;  }
+Cos|COS|cos|cosinus|Cosinus|COSINUS { return COS;  }
+Tan|TAN|tan|tangente|Tangente|TANGENTE { return TAN;  }
 un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }
 trois   { yylval.valeur = 3. ; return NUM; }
