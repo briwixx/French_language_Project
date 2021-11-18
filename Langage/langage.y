@@ -1,7 +1,7 @@
 %{
   #include <stdio.h>
   #include <stdlib.h>
-  #include <cmath>
+  #include <cmath>   
   #include <map>
   #include <vector>
   #include <string>
@@ -17,10 +17,10 @@
 
   class instruction{
   public:
-    instruction (const int &c, const double &v=0, const string &n="") {code = c; value = v; name = n;};
-    int code;
+    instruction (const int &c, const double &v=0, const string &n="") {code = c; value = v; name = n;};  
+    int code; 
     double value;     // éventuellement une valeur si besoin
-    string name;      // ou une référence pour la table des données
+    string name;      // ou une référence pour la table des données 
   };
 
   // Déclaration de la map qui associe
@@ -36,22 +36,22 @@
   // Je vous laisse gérer les problèmes créés par le Goto :
   // - Saut vers une étiquette inexistante (ni avant, ni après)
   // - Duplication de labels (Déterminisme !!!)
-  // Ne parlons pas, comme dans l'exmeple, des sauts de blocs de déclarations,
+  // Ne parlons pas, comme dans l'exmeple, des sauts de blocs de déclarations, 
   // ou des bloc entremêlés, ou... ou ...
   // Vous avez compris pourquoi il est banni ?
   map<string,int> adresses;
 
-
-  // Structure pour accueillir le code généré
+  
+  // Structure pour accueillir le code généré 
   // (sone de code ou code machine ou assembleur)
-  vector <instruction> code_genere;
+  vector <instruction> code_genere;    
 
   // Remarquez les paramètres par défaut pour faciliter les appels depuis la grammaire
   int add_instruction(const int &c, const double &v=0, const string &n="") {
-      code_genere.push_back(instruction(c,v,n));
+      code_genere.push_back(instruction(c,v,n)); 
       ic++;
-      return 0;
-   };
+      return 0; 
+   }; 
 
 
 %}
@@ -67,12 +67,12 @@
 %union {
   double valeur;
   char nom[50];
-  type_adresse adresse;
+  type_adresse adresse;  
 }
 
 %token <valeur> NUM
 %token <nom> VAR
-%type <valeur> expr
+%type <valeur> expr 
 %token SIN
 %token COS
 %token <adresse> SI
@@ -80,6 +80,9 @@
 %token SINON
 %token FINSI
 %token SUP
+%token SUPEQ
+%token INF
+%token INFEQ
 %token PRINT
 %token ASSIGN
 %token GOTO
@@ -87,17 +90,17 @@
 %token JMP
 %token JMPCOND
 
-%right ADD SUB   // N'oubliez pas de remettre left !
+%left ADD SUB
 %left MULT DIV
 
 %%
 bloc:  /* Epsilon */
-     | bloc label instruction '\n'
+     | bloc label instruction '\n'   
 
 label : // Epsilon
       | LABEL ':'  { // Lorsque je rencontre un label
                      // je stocke le numéro d'instruction actelle
-                     // dans la table des adresses. C'est tout!
+                     // dans la table des adresses. C'est tout!   
                      adresses [$1] = ic;}
 
 instruction :   /* Epsilon, ligne vide */
@@ -106,24 +109,24 @@ instruction :   /* Epsilon, ligne vide */
             | VAR '=' expr { add_instruction(ASSIGN, 0, $1); }
             | GOTO LABEL   {  // J'insère un JMP vers une adresse que je ne connais pas encore.
                               // J'utiliserai la table des adresses pour la récupérer lors de l'exécution
-                              add_instruction(JMP, -999, $2);
+                              add_instruction(JMP, -999, $2); 
                            }
-            | SI '(' condition ')' '\n' { // Je sauvegarde l'endroit actuel pour revenir mofifier l'adresse
+            | SI '(' condition ')' '\n' { // Je sauvegarde l'endroit actuel pour revenir mofifier l'adresse 
                                           // lorsqu'elle sera connue (celle du JC)
                                           $1.jc = ic;
                                           add_instruction(JMPCOND); }
               ALORS '\n'
-                bloc                    { // Je sauvegarde l'endroit actuel pour revenir mofifier l'adresse
+                bloc                    { // Je sauvegarde l'endroit actuel pour revenir mofifier l'adresse 
                                           // lorsqu'elle sera connue (celle du JMP)
                                           $1.jmp = ic;
                                           add_instruction(JMP);
                                           // Je mets à jour l'adresse du saut conditionnel
                                           code_genere[$1.jc].value = ic;
                                         }
-              SINON '\n'
-                bloc
+              SINON '\n' 
+                bloc                                  
               FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
-                                          code_genere[$1.jmp].value = ic;}
+                                          code_genere[$1.jmp].value = ic;}                  
 
 expr:  NUM               { add_instruction (NUM, $1);   }
      | VAR               { add_instruction (VAR, 0, $1);  }
@@ -131,26 +134,30 @@ expr:  NUM               { add_instruction (NUM, $1);   }
      | COS '(' expr ')'  {  }
      | '(' expr ')'      {  }
      | expr ADD expr     { add_instruction (ADD); }
-     | expr SUB expr     {  }
-     | expr MULT expr    { add_instruction (MULT); }
-     | expr DIV expr     {  }
+     | expr SUB expr     { add_instruction (SUB); }   		
+     | expr MULT expr    { add_instruction (MULT); }		
+     | expr DIV expr     { add_instruction (DIV); }   
 
 
-condition :  expr          {}
-          |  expr SUP expr {}
+condition :  expr             { }
+          |  expr SUP expr    { add_instruction (SUP); }
+          |  expr SUPEQ expr  { add_instruction (SUPEQ); }
+          |  expr INF expr    { add_instruction (INF); }
+          |  expr INFEQ expr  { add_instruction (INFEQ); }
+
 %%
 
-int yyerror(char *s) {
+int yyerror(char *s) {					
     printf("%s : %s\n", s, yytext);
 }
 
 
-// Petite fonction pour mieux voir le code généré
+// Petite fonction pour mieux voir le code généré 
 // (au lieu des nombres associés au tokens)
 string print_code(int ins) {
   switch (ins) {
     case ADD      : return "ADD";
-    case MULT     : return "MUL";
+    case MULT     : return "MUL";    
     case NUM      : return "NUM";
     case VAR      : return "VAR";
     case PRINT    : return "OUT";
@@ -162,7 +169,7 @@ string print_code(int ins) {
 }
 
 // Fonction qui exécute le code généré sur un petit émulateur
-void execution ( const vector <instruction> &code_genere,
+void execution ( const vector <instruction> &code_genere, 
                  map<string,double> &variables )
 {
 printf("\n------- Exécution du programme ---------\n");
@@ -170,6 +177,8 @@ stack<int> pile;
 
 int ic = 0;  // compteur instruction
 double r1, r2;  // des registres
+
+printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le reste ?\n");
 
   while (ic < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
       auto ins = code_genere[ic];
@@ -184,6 +193,18 @@ double r1, r2;  // des registres
             pile.push(r1+r2);
             ic++;
           break;
+
+        case SUB:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1-r2);
+            ic++;
+          break;
+        
         case MULT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
@@ -192,6 +213,61 @@ double r1, r2;  // des registres
             pile.pop();
 
             pile.push(r1*r2);
+            ic++;
+          break;
+
+        case DIV:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1-r2);
+            ic++;
+          break;
+
+        case SUP:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1>r2);
+            ic++;
+          break;
+
+        case SUPEQ:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1>=r2);
+            ic++;
+          break;
+
+        case INF:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1<r2);
+            ic++;
+          break;
+
+        case INFEQ:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1<=r2);
             ic++;
           break;
 
@@ -205,7 +281,7 @@ double r1, r2;  // des registres
         case PRINT:
             r1 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
-            cout << "$ " << r1 << endl;
+            cout << "$ " << r1 << endl; 
             ic++;
         break;
 
@@ -222,17 +298,17 @@ double r1, r2;  // des registres
               ic = adresses[ins.name];
           break;
 
-        case JMPCOND:
+        case JMPCOND: 
              r1 = pile.top();    // Rrécupérer la tête de pile;
              pile.pop();
-             if ( r1 != 0 )
+             if ( r1 != 0 ) 
                 ic++;
-             else
-                ic = (int)ins.value;
+             else 
+                ic = (int)ins.value;             
           break;
 
         case VAR:    // je consulte la table de symbole et j'empile la valeur de la variable
-             // Si elle existe bien sur...
+             // Si elle existe bien sur... 
             try {
                 pile.push(variables.at(ins.name));
                 ic++;
@@ -261,13 +337,13 @@ int main(int argc, char **argv) {
 
   for (int i = 0; i < code_genere.size(); i++){
     auto instruction = code_genere [i];
-    cout << i
+    cout << i 
          << '\t'
-         << print_code(instruction.code)
+         << print_code(instruction.code) 
          << '\t'
-         << instruction.value
-         << '\t'
-         << instruction.name
+         << instruction.value 
+         << '\t' 
+         << instruction.name 
          << endl;
   }
 
