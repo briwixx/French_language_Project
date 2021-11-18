@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -30,6 +31,10 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
 #ifndef YY_YY_LANGAGE_BISON_HPP_INCLUDED
 # define YY_YY_LANGAGE_BISON_HPP_INCLUDED
 /* Debug traces.  */
@@ -39,37 +44,62 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 60 "langage.y"
 
-/* Token type.  */
+    typedef struct adr {
+        int jmp;  // adresse du jmp
+        int jc;  // adrese  du jc
+    } type_adresse;
+  
+
+#line 57 "langage.bison.hpp"
+
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NUM = 258,
-    VAR = 259,
-    SIN = 260,
-    COS = 261,
-    SI = 262,
-    ALORS = 263,
-    SINON = 264,
-    FINSI = 265,
-    SUP = 266
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    NUM = 258,                     /* NUM  */
+    VAR = 259,                     /* VAR  */
+    SIN = 260,                     /* SIN  */
+    COS = 261,                     /* COS  */
+    SI = 262,                      /* SI  */
+    ALORS = 263,                   /* ALORS  */
+    SINON = 264,                   /* SINON  */
+    FINSI = 265,                   /* FINSI  */
+    SUP = 266,                     /* SUP  */
+    PRINT = 267,                   /* PRINT  */
+    ASSIGN = 268,                  /* ASSIGN  */
+    GOTO = 269,                    /* GOTO  */
+    LABEL = 270,                   /* LABEL  */
+    JMP = 271,                     /* JMP  */
+    JMPCOND = 272,                 /* JMPCOND  */
+    ADD = 273,                     /* ADD  */
+    SUB = 274,                     /* SUB  */
+    MULT = 275,                    /* MULT  */
+    DIV = 276                      /* DIV  */
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
 union YYSTYPE
 {
-#line 21 "langage.y" /* yacc.c:1909  */
+#line 67 "langage.y"
 
   double valeur;
   char nom[50];
+  type_adresse adresse;
 
-#line 71 "langage.bison.hpp" /* yacc.c:1909  */
+#line 101 "langage.bison.hpp"
+
 };
-
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -78,6 +108,8 @@ typedef union YYSTYPE YYSTYPE;
 
 extern YYSTYPE yylval;
 
+
 int yyparse (void);
+
 
 #endif /* !YY_YY_LANGAGE_BISON_HPP_INCLUDED  */

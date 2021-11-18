@@ -1,6 +1,1 @@
-Si ( 8 > 4 )
-Alors
-    2+2
-Sinon
-    3+3
-FinSi
+2 + 3
