@@ -26,6 +26,7 @@ plus    { return ADD;}
 fois    { return MULT; }
 Si      { return SI;}
 Tant_que  { return TANT_QUE; }
+Fin_tant_que  { return FIN_TANT_QUE; }
 Alors   { return ALORS;}
 Sinon   { return SINON;}
 FinSi   { return FINSI;}

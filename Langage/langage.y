@@ -78,6 +78,7 @@
 %token TAN
 %token <adresse> SI
 %token <adresse> TANT_QUE
+%token FIN_TANT_QUE
 %token ALORS
 %token SINON
 %token FINSI
@@ -129,7 +130,10 @@ instruction :   /* Epsilon, ligne vide */
                 bloc                                  
               FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
                                           code_genere[$1.jmp].value = ic;}                  
- 
+            | TANT_QUE '(' condition ')' '\n'
+                bloc
+              FIN_TANT_QUE
+
 
 
 expr:  NUM               { add_instruction (NUM, $1);   }
@@ -189,10 +193,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
       auto ins = code_genere[ic];
       switch (ins.code){
         case ADD:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            r2 = pile.top();    // Rrécupérer la tête de pile;
+            r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(r1+r2);
@@ -200,10 +204,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case SUB:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            r2 = pile.top();    // Rrécupérer la tête de pile;
+            r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(r1-r2);
@@ -211,10 +215,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
         
         case MULT:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            r2 = pile.top();    // Rrécupérer la tête de pile;
+            r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(r1*r2);
@@ -222,10 +226,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case DIV:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            r2 = pile.top();    // Rrécupérer la tête de pile;
+            r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(r1/r2);
@@ -233,10 +237,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case SUP:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            r2 = pile.top();    // Rrécupérer la tête de pile;
+            r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(r1<r2);
@@ -244,10 +248,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case SUPEQ:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            r2 = pile.top();    // Rrécupérer la tête de pile;
+            r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(r1<=r2);
@@ -255,10 +259,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case INF:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            r2 = pile.top();    // Rrécupérer la tête de pile;
+            r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(r1>r2);
@@ -266,10 +270,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case INFEQ:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            r2 = pile.top();    // Rrécupérer la tête de pile;
+            r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(r1>=r2);
@@ -277,7 +281,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case SIN:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(sin(r1));
@@ -285,7 +289,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case COS:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(cos(r1));
@@ -293,7 +297,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case TAN:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
             pile.push(tan(r1));
@@ -301,14 +305,14 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case ASSIGN:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
             variables[ins.name] = r1;
             ic++;
           break;
 
         case PRINT:
-            r1 = pile.top();    // Rrécupérer la tête de pile;
+            r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
             cout << "$ " << r1 << endl; 
             ic++;
@@ -328,7 +332,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case JMPCOND: 
-             r1 = pile.top();    // Rrécupérer la tête de pile;
+             r1 = pile.top();    // Récuperer la tête de pile;
              pile.pop();
              if ( r1 != 0 ) 
                 ic++;
