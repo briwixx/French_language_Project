@@ -128,8 +128,7 @@ instruction :   /* Epsilon, ligne vide */
               SINON '\n' 
                 bloc                                  
               FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
-                                          code_genere[$1.jmp].value = ic;}                  
-            | TANT QUE
+                                          code_genere[$1.jmp].value = ic;} 
 
 
 
