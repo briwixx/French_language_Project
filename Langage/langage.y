@@ -77,6 +77,7 @@
 %token COS
 %token TAN
 %token <adresse> SI
+%token <adresse> TANT_QUE
 %token ALORS
 %token SINON
 %token FINSI
@@ -128,6 +129,9 @@ instruction :   /* Epsilon, ligne vide */
                 bloc                                  
               FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
                                           code_genere[$1.jmp].value = ic;}                  
+            | TANT QUE
+
+
 
 expr:  NUM               { add_instruction (NUM, $1);   }
      | VAR               { add_instruction (VAR, 0, $1);  }
@@ -225,7 +229,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             r2 = pile.top();    // Rrécupérer la tête de pile;
             pile.pop();
 
-            pile.push(r1-r2);
+            pile.push(r1/r2);
             ic++;
           break;
 
