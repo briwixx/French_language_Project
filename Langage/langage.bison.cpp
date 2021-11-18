@@ -1448,25 +1448,25 @@ yyreduce:
 
   case 24:
 #line 143 "langage.y" /* yacc.c:1646  */
-    { }
+    { add_instruction (SUP); }
 #line 1453 "langage.bison.cpp" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 144 "langage.y" /* yacc.c:1646  */
-    { }
+    { add_instruction (SUPEQ); }
 #line 1459 "langage.bison.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 145 "langage.y" /* yacc.c:1646  */
-    { }
+    { add_instruction (INF); }
 #line 1465 "langage.bison.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 146 "langage.y" /* yacc.c:1646  */
-    { }
+    { add_instruction (INFEQ); }
 #line 1471 "langage.bison.cpp" /* yacc.c:1646  */
     break;
 
@@ -1779,6 +1779,50 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             pile.pop();
 
             pile.push(r1-r2);
+            ic++;
+          break;
+
+        case SUP:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1>r2);
+            ic++;
+          break;
+
+        case SUPEQ:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1>=r2);
+            ic++;
+          break;
+
+        case INF:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1<r2);
+            ic++;
+          break;
+
+        case INFEQ:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1<=r2);
             ic++;
           break;
 

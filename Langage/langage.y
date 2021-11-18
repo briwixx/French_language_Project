@@ -140,10 +140,10 @@ expr:  NUM               { add_instruction (NUM, $1);   }
 
 
 condition :  expr             { }
-          |  expr SUP expr    { }
-          |  expr SUPEQ expr  { }
-          |  expr INF expr    { }
-          |  expr INFEQ expr  { }
+          |  expr SUP expr    { add_instruction (SUP); }
+          |  expr SUPEQ expr  { add_instruction (SUPEQ); }
+          |  expr INF expr    { add_instruction (INF); }
+          |  expr INFEQ expr  { add_instruction (INFEQ); }
 
 %%
 
@@ -224,6 +224,50 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             pile.pop();
 
             pile.push(r1-r2);
+            ic++;
+          break;
+
+        case SUP:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1>r2);
+            ic++;
+          break;
+
+        case SUPEQ:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1>=r2);
+            ic++;
+          break;
+
+        case INF:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1<r2);
+            ic++;
+          break;
+
+        case INFEQ:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+
+            pile.push(r1<=r2);
             ic++;
           break;
 
