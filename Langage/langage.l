@@ -17,11 +17,21 @@
 " "    { }
 \t     { }
 Sin|SIN|sin|sinus|Sinus|SINUS { return SIN;  }
-Cos|COS|cos { return COS;  }
+Cos|COS|cos|cosinus|Cosinus|COSINUS { return COS;  }
+Tan|TAN|tan|tangente|Tangente|TANGENTE { return TAN; } //tangante
+ArcSin|Arcsin|ARCSIN|arcsin|arcsinus|arcSinus|ARCSINUS { return ARCSIN;  } //arcsin
+ArcCos|Arccos|ARCCOS|arccos|arccosinus|arcCosinus|ARCCOS { return ARCCOS;  } //arccos
+ArcTan|ARCTAN|arctan|arctangente|ArcTangente|ARCTANGENTE { return ARCTAN;}  //arctan
+puissance|Puissance { return POW;} //puissance
+factorielle|Factorielle|fact|Fact|FACT  { return FACT;} //factorielle
+exponentielle|Exponentielle|exp|Exp|EXP { return EXP;} //exponentielle
+logarithme|Logarithme|log|Log { return LOG;} //logarithme
+logarithmeneperien|LogarithmeNeperien|Logarithmeneperien|logarithmeNeperien|ln|Ln { return LN;} //logarithmeNeperien
+
 un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }
 trois   { yylval.valeur = 3. ; return NUM; }
-plus    { return ADD;}
+plus    { return ADD; }
 fois    { return MULT; }
 Si      { return SI;}
 Alors   { return ALORS;}
@@ -43,6 +53,8 @@ GoTo    { return GOTO;}
 "-"    {  return SUB; }
 "*"    {  return MULT; }
 "/"    {  return DIV; }
+"^"    { return POW; } //puissance
+"!"    { return FACT;} //factorielle
 "="|"<-"    {  return '='; }
 ">"    { return SUP; }
 "<"    { return INF; }
