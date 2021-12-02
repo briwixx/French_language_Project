@@ -112,7 +112,7 @@ instruction :   /* Epsilon, ligne vide */
             | VAR '=' expr { add_instruction(ASSIGN, 0, $1); }
             | GOTO LABEL   {  // J'insère un JMP vers une adresse que je ne connais pas encore.
                               // J'utiliserai la table des adresses pour la récupérer lors de l'exécution
-                              add_instruction(JMP, -999, $2); 
+                              add_instruction(JMP, -999, $2);
                            }
             | SI '(' condition ')' '\n' { // Je sauvegarde l'endroit actuel pour revenir mofifier l'adresse 
                                           // lorsqu'elle sera connue (celle du JC)
@@ -127,17 +127,18 @@ instruction :   /* Epsilon, ligne vide */
                                           code_genere[$1.jc].value = ic;
                                         }
               SINON '\n' 
-                bloc                                  
-              FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
-                                          code_genere[$1.jmp].value = ic;}                  
-            | TANT_QUE '(' condition ')' '\n'
                 bloc
-              FIN_TANT_QUE
+              FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
+                                          code_genere[$1.jmp].value = ic; }                  
+            | TANT_QUE '(' condition ')' '\n' 
+                bloc                    { $1.jc = ic;
+                                                add_instruction(JMPCOND); }
+              FIN_TANT_QUE              { code_genere[$1.jmp].value = ic; } 
 
 
 
-expr:  NUM               { add_instruction (NUM, $1);   }
-     | VAR               { add_instruction (VAR, 0, $1);  }
+expr:  NUM               { add_instruction (NUM, $1); }
+     | VAR               { add_instruction (VAR, 0, $1); }
      | SIN '(' expr ')'  { add_instruction (SIN); }
      | COS '(' expr ')'  { add_instruction (COS); }
      | TAN '(' expr ')'  { add_instruction (TAN); }
@@ -210,7 +211,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             r2 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
 
-            pile.push(r1-r2);
+            pile.push(r2-r1);
             ic++;
           break;
         

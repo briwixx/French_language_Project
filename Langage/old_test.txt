@@ -1,0 +1,40 @@
+GoTo @la_bas
+
+@ici : 
+Imprime ce + bloc + ne + sera + pas + execute + a + cause + du + goto
+x = 0
+y = 1
+Imprime x
+Imprime y
+
+@la_bas:
+x = tan(5)
+Imprime x
+x = x + 1
+Imprime x
+
+Si (x<4)
+Alors
+	Si (y)
+	Alors
+		Imprime Une + Condition + Imbriquee
+		Imprime A + cause + du + goto + y + est + nul
+	Sinon
+		Imprime 10-9
+		Tant_que (x<6)
+			x = x + 1
+			Imprime x
+		Fin_tant_que
+	FinSi
+Sinon
+	Imprime 1+6*7
+FinSi
+
+GoTo @fin
+
+	Imprime ce + bloc + ne + sera + pas + execute + a + cause + du + goto
+	Imprime EssayezLaBoucleInfinieAvecLeGoto
+	GoTo @ici
+	Imprime EtCodezUnPrintDigneDeCeNom
+	
+@fin:
