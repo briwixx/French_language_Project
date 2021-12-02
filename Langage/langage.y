@@ -130,10 +130,20 @@ instruction :   /* Epsilon, ligne vide */
                 bloc
               FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
                                           code_genere[$1.jmp].value = ic; }                  
-            | TANT_QUE '(' condition ')' '\n' 
-                bloc                    { $1.jc = ic;
+            | TANT_QUE '(' condition ')' '\n' { // Je sauvegarde l'endroit actuel pour revenir mofifier l'adresse 
+                                                // lorsqu'elle sera connue (celle du JC)
+                                                $1.jc = ic;
                                                 add_instruction(JMPCOND); }
-              FIN_TANT_QUE              { code_genere[$1.jmp].value = ic; } 
+                bloc                          { // Je sauvegarde l'endroit actuel pour revenir mofifier l'adresse 
+                                                // lorsqu'elle sera connue (celle du JMP)
+                                                $1.jmp = ic;
+                                                add_instruction(JMP);
+                                                // Je mets à jour l'adresse du saut conditionnel
+                                                code_genere[$1.jc].value = ic;
+                                              }
+              FIN_TANT_QUE                    { // Je mets à jour l'adresse du saut inconditionnel
+                                                code_genere[$1.jmp].value = ic; 
+                                              }
 
 
 
