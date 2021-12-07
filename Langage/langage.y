@@ -14,6 +14,7 @@
   extern char* yytext;
   extern FILE* yyin;
   int yyerror(char *s);
+  int temp; //Utilisé pour les boucles
 
   class instruction{
   public:
@@ -92,6 +93,7 @@
 %token <nom> LABEL
 %token JMP
 %token JMPCOND
+%token HASARD
 
 %left ADD SUB
 %left MULT DIV
@@ -130,13 +132,14 @@ instruction :   /* Epsilon, ligne vide */
                 bloc
               FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
                                           code_genere[$1.jmp].value = ic; }                  
-            | TANT_QUE '(' condition ')' '\n' { $1.jc = ic;
+            | TANT_QUE                        { $1.jmp = ic; }
+              '(' condition ')' '\n'          { $1.jc = ic;
                                                 add_instruction(JMPCOND); }
-                bloc                          { $1.jmp = ic;
-                                                add_instruction(JMP);
-                                                code_genere[$1.jc].value = ic;
+                bloc                          { 
+                                                add_instruction(JMP, $1.jmp);
                                               }
-              FIN_TANT_QUE                    { code_genere[$1.jmp].value = ic; 
+              FIN_TANT_QUE                    { 
+                                                code_genere[$1.jc].value = ic; 
                                               }
 
 
@@ -151,6 +154,7 @@ expr:  NUM               { add_instruction (NUM, $1); }
      | expr SUB expr     { add_instruction (SUB); }   		
      | expr MULT expr    { add_instruction (MULT); }		
      | expr DIV expr     { add_instruction (DIV); }   
+     | HASARD '(' expr  expr ')'   { add_instruction (HASARD); }
 
 
 condition :  expr             { }
@@ -343,6 +347,16 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
                 ic++;
              else 
                 ic = (int)ins.value;             
+          break;
+        case HASARD:
+            r1 = pile.top();    // Récupérer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Récupérer la tête de pile;
+            pile.pop();
+            // (rand() % (r1 - r2 + 1)) + r2
+            pile.push((rand() % (int)(r1 - r2 + 1)) + r2);
+            ic++;
           break;
 
         case VAR:    // je consulte la table de symbole et j'empile la valeur de la variable

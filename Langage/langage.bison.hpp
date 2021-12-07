@@ -40,7 +40,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 60 "langage.y" /* yacc.c:1909  */
+#line 61 "langage.y" /* yacc.c:1909  */
 
     typedef struct adr {
         int jmp;  // adresse du jmp
@@ -76,10 +76,11 @@ extern int yydebug;
     LABEL = 276,
     JMP = 277,
     JMPCOND = 278,
-    ADD = 279,
-    SUB = 280,
-    MULT = 281,
-    DIV = 282
+    HASARD = 279,
+    ADD = 280,
+    SUB = 281,
+    MULT = 282,
+    DIV = 283
   };
 #endif
 
@@ -88,13 +89,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 67 "langage.y" /* yacc.c:1909  */
+#line 68 "langage.y" /* yacc.c:1909  */
 
   double valeur;
   char nom[50];
   type_adresse adresse;  
 
-#line 98 "langage.bison.hpp" /* yacc.c:1909  */
+#line 99 "langage.bison.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

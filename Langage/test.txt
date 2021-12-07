@@ -1,14 +1,14 @@
 x = tan(5)
 Imprime x
 x = x + 1
-Imprime x
+Imprime Hasard(1 80)
 x = 3
 Imprime x
 
 Si (x>2)
 Alors
 	Imprime 10-9
-	Tant_que (x<4)
+	Tant_que (x<10)
 		x = x + 2
 		Imprime x
 	Fin_tant_que
