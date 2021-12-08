@@ -70,30 +70,32 @@ extern int yydebug;
     SI = 270,
     TANT_QUE = 271,
     FIN_TANT_QUE = 272,
-    ALORS = 273,
-    SINON = 274,
-    FINSI = 275,
-    SUP = 276,
-    SUPEQ = 277,
-    INF = 278,
-    INFEQ = 279,
-    ABS = 280,
-    PRINT = 281,
-    ASSIGN = 282,
-    GOTO = 283,
-    LABEL = 284,
-    JMP = 285,
-    JMPCOND = 286,
-    POW = 287,
-    FACT = 288,
-    EXP = 289,
-    LOG = 290,
-    LN = 291,
-    HASARD = 292,
-    ADD = 293,
-    SUB = 294,
-    MULT = 295,
-    DIV = 296
+    POUR = 273,
+    FIN_POUR = 274,
+    ALORS = 275,
+    SINON = 276,
+    FINSI = 277,
+    SUP = 278,
+    SUPEQ = 279,
+    INF = 280,
+    INFEQ = 281,
+    ABS = 282,
+    PRINT = 283,
+    ASSIGN = 284,
+    GOTO = 285,
+    LABEL = 286,
+    JMP = 287,
+    JMPCOND = 288,
+    POW = 289,
+    FACT = 290,
+    EXP = 291,
+    LOG = 292,
+    LN = 293,
+    HASARD = 294,
+    ADD = 295,
+    SUB = 296,
+    MULT = 297,
+    DIV = 298
   };
 #endif
 
@@ -108,7 +110,7 @@ union YYSTYPE
   char nom[50];
   type_adresse adresse;  
 
-#line 112 "langage.bison.hpp" /* yacc.c:1909  */
+#line 114 "langage.bison.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

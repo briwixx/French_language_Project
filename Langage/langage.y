@@ -87,6 +87,8 @@
 %token <adresse> SI
 %token <adresse> TANT_QUE
 %token FIN_TANT_QUE
+%token <adresse> POUR
+%token FIN_POUR
 %token ALORS
 %token SINON
 %token FINSI
@@ -152,6 +154,15 @@ instruction :   /* Epsilon, ligne vide */
                                                 add_instruction(JMP, $1.jmp);
                                               }
               FIN_TANT_QUE                    { 
+                                                code_genere[$1.jc].value = ic; 
+                                              }
+            | POUR                            { $1.jmp = ic; }
+              '(' condition ')' '\n'          { $1.jc = ic;
+                                                add_instruction(JMPCOND); }
+                bloc                          { 
+                                                add_instruction(JMP, $1.jmp);
+                                              }
+              FIN_POUR                    { 
                                                 code_genere[$1.jc].value = ic; 
                                               }
 
