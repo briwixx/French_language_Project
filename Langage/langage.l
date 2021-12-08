@@ -23,13 +23,8 @@ Tan|TAN|tan|tangente|Tangente|TANGENTE { return TAN; } //tangante
 ArcSin|Arcsin|ARCSIN|arcsin|arcsinus|arcSinus|ARCSINUS { return ARCSIN;  } //arcsin
 ArcCos|Arccos|ARCCOS|arccos|arccosinus|arcCosinus|ARCCOS { return ARCCOS;  } //arccos
 ArcTan|ARCTAN|arctan|arctangente|ArcTangente|ARCTANGENTE { return ARCTAN;}  //arctan
-<<<<<<< Updated upstream
-puissance|Puissance { return POW;} //puissance
-factorielle|Factorielle|fact|Fact|FACT  { return FACT;} //factorielle
-=======
 puissance|Puissance|PUISSANCE|"^" { return POW;} //puissance
 factorielle|Factorielle|fact|Fact|FACT|"!"  { return FACT;} //factorielle
->>>>>>> Stashed changes
 exponentielle|Exponentielle|exp|Exp|EXP { return EXP;} //exponentielle
 logarithme|Logarithme|log|Log { return LOG;} //logarithme
 logarithmeneperien|LogarithmeNeperien|Logarithmeneperien|logarithmeNeperien|ln|Ln { return LN;} //logarithmeNeperien
