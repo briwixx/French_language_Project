@@ -45,10 +45,7 @@ Sinon   { return SINON;}
 FinSi   { return FINSI;}
 Imprime { return PRINT;}
 GoTo    { return GOTO;}
-<<<<<<< Updated upstream
-=======
 Hasard  { return HASARD; }
->>>>>>> Stashed changes
 
 @[A-Za-z_][A-Za-z_0-9]* { strcpy( yylval.nom, yytext) ;
                           return LABEL;
@@ -59,19 +56,6 @@ Hasard  { return HASARD; }
                          return VAR;
                        }
 
-<<<<<<< Updated upstream
-\+     {  return ADD; }
-"-"    {  return SUB; }
-"*"    {  return MULT; }
-"/"    {  return DIV; }
-"^"    { return POW; } //puissance
-"!"    { return FACT;} //factorielle
-"="|"<-"    {  return '='; }
-">"    { return SUP; }
-"<"    { return INF; }
-">="   { return SUPEQ; }
-"<="   { return INFEQ; }
-=======
 \+|plus|Plus|PLUS     {  return ADD; }
 "-"|moins|Moins|MOINS {  return SUB; }
 "*"|fois|Fois|FOIS    {  return MULT; }
@@ -81,7 +65,6 @@ Hasard  { return HASARD; }
 "<"|inferieur|Inferieur|INFERIEUR    { return INF; }
 ">="|superieur\sou\segal   { return SUPEQ; }
 "<="|inferieur\sou\segal    { return INFEQ; }
->>>>>>> Stashed changes
 ":"    { return ':'; }
 \(     {  return '('; }
 \)     {  return ')'; }

@@ -359,7 +359,6 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             ic++;
           break;
         
-        
         case ARCSIN:               //arcsinus
             r1 = pile.top();    
             pile.pop(); 
@@ -384,7 +383,6 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             ic++;
           break;
         
-
         case SUP:
             r1 = pile.top();    
             pile.pop();
@@ -464,13 +462,10 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
              else
                 ic = (int)ins.value;
           break;
-<<<<<<< Updated upstream
-=======
 
         case HASARD:
             r1 = pile.top();    // Récupérer la tête de pile;
             pile.pop();
->>>>>>> Stashed changes
 
         case VAR:    //je consulte la table de symbole et j'empile la valeur de la variable
              //Si elle existe bien sur...
