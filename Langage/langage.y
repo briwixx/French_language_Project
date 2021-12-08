@@ -98,7 +98,11 @@
 %token EXP  //exponentielle
 %token LOG  //logarithme
 %token LN   //logarithmeneperien
+<<<<<<< Updated upstream
 
+=======
+%token HASARD
+>>>>>>> Stashed changes
 
 %left ADD SUB
 %left COS SIN ARCCOS ARCSIN LN LOG EXP FACT POW MULT DIV //puissance //factorielle //exponentielle //logarithme //logarithmeneperien
@@ -135,8 +139,24 @@ instruction :   /* Epsilon, ligne vide */
                                         }
               SINON '\n'
                 bloc
+<<<<<<< Updated upstream
               FINSI                     { //Je mets à jour l'adresse du saut inconditionnel
                                           code_genere[$1.jmp].value = ic;}
+=======
+              FINSI                     { // Je mets à jour l'adresse du saut inconditionnel
+                                          code_genere[$1.jmp].value = ic; }                  
+            | TANT_QUE                        { $1.jmp = ic; }
+              '(' condition ')' '\n'          { $1.jc = ic;
+                                                add_instruction(JMPCOND); }
+                bloc                          { 
+                                                add_instruction(JMP, $1.jmp);
+                                              }
+              FIN_TANT_QUE                    { 
+                                                code_genere[$1.jc].value = ic; 
+                                              }
+
+
+>>>>>>> Stashed changes
 
 expr:  NUM               { add_instruction (NUM, $1);   }    
      | VAR               { add_instruction (VAR, 0, $1);  }
@@ -156,9 +176,13 @@ expr:  NUM               { add_instruction (NUM, $1);   }
      | EXP expr          { add_instruction (EXP); }  //exponentielle
      | LOG expr          { add_instruction (LOG); }  //logarithme
      | LN expr           { add_instruction (LN);  }  //logarithmeNeperien
+<<<<<<< Updated upstream
 
 
 
+=======
+     | HASARD '(' expr  expr ')'   { add_instruction (HASARD); }
+>>>>>>> Stashed changes
 
 
 condition :  expr             { }
@@ -440,6 +464,13 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
              else
                 ic = (int)ins.value;
           break;
+<<<<<<< Updated upstream
+=======
+
+        case HASARD:
+            r1 = pile.top();    // Récupérer la tête de pile;
+            pile.pop();
+>>>>>>> Stashed changes
 
         case VAR:    //je consulte la table de symbole et j'empile la valeur de la variable
              //Si elle existe bien sur...
