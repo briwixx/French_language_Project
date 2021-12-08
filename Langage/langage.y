@@ -74,9 +74,14 @@
 %token <valeur> NUM
 %token <nom> VAR
 %type <valeur> expr 
+%token <valeur> PI
 %token SIN
 %token COS
 %token TAN
+%token SINH
+%token COSH
+%token TANH
+%token EXP
 %token <adresse> SI
 %token <adresse> TANT_QUE
 %token FIN_TANT_QUE
@@ -145,10 +150,15 @@ instruction :   /* Epsilon, ligne vide */
 
 
 expr:  NUM               { add_instruction (NUM, $1); }
+     |PI                 { add_instruction (NUM, 3.14159265359);}
      | VAR               { add_instruction (VAR, 0, $1); }
      | SIN '(' expr ')'  { add_instruction (SIN); }
+     | SINH '(' expr ')'  { add_instruction (SINH); }
      | COS '(' expr ')'  { add_instruction (COS); }
+     | COSH '(' expr ')'  { add_instruction (COSH); }
      | TAN '(' expr ')'  { add_instruction (TAN); }
+     | TANH '(' expr ')'  { add_instruction (TANH); }
+     | EXP '(' expr ')'  { add_instruction (EXP); }
      | '(' expr ')'      {  }
      | expr ADD expr     { add_instruction (ADD); }
      | expr SUB expr     { add_instruction (SUB); }   		
@@ -302,6 +312,13 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             pile.pop();
 
             pile.push(cos(r1));
+            ic++;
+          break;
+
+        case COSH:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+            pile.push(cosh(r1));
             ic++;
           break;
 

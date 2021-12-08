@@ -1,4 +1,4 @@
-x = tan(5)
+x = tan(5)*tan(5)
 Imprime x
 x = x + 1
 Imprime Hasard(1 80)
@@ -15,3 +15,4 @@ Alors
 Sinon
 	Imprime 1+6*7
 FinSi
+Imprime cosh(5)

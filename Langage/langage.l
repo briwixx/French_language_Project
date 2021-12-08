@@ -17,8 +17,12 @@
 " "    { }
 \t     { }
 Sin|SIN|sin|sinus|Sinus|SINUS { return SIN;  }
+Sinh|SINH|sinh|sinush|Sinush|SINUSH { return SINH;  }
 Cos|COS|cos|cosinus|Cosinus|COSINUS { return COS;  }
+Cosh|COSH|cosh|cosinush|Cosinush|COSINUSH {return COSH;}
 Tan|TAN|tan|tangente|Tangente|TANGENTE { return TAN;  }
+Tanh|TANH|tanh|tangenteh|Tangenteh|TANGENTEH {return TANH;}
+pi|Pi|PI { return PI;}
 un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }
 trois   { yylval.valeur = 3. ; return NUM; }
