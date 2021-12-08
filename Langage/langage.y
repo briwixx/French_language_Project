@@ -81,7 +81,9 @@
 %token SINH
 %token COSH
 %token TANH
-%token EXP
+%token ARCSIN //arcsinus
+%token ARCCOS //arccosinus
+%token ARCTAN //arctan
 %token <adresse> SI
 %token <adresse> TANT_QUE
 %token FIN_TANT_QUE
@@ -98,6 +100,11 @@
 %token <nom> LABEL
 %token JMP
 %token JMPCOND
+%token POW  //puissance
+%token FACT //factorielle
+%token EXP  //exponentielle
+%token LOG  //logarithme
+%token LN   //logarithmeneperien
 %token HASARD
 
 %left ADD SUB
@@ -153,17 +160,25 @@ expr:  NUM               { add_instruction (NUM, $1); }
      |PI                 { add_instruction (NUM, 3.14159265359);}
      | VAR               { add_instruction (VAR, 0, $1); }
      | SIN '(' expr ')'  { add_instruction (SIN); }
-     | SINH '(' expr ')'  { add_instruction (SINH); }
+     | SINH '(' expr ')' { add_instruction (SINH); }
      | COS '(' expr ')'  { add_instruction (COS); }
-     | COSH '(' expr ')'  { add_instruction (COSH); }
+     | COSH '(' expr ')' { add_instruction (COSH); }
      | TAN '(' expr ')'  { add_instruction (TAN); }
-     | TANH '(' expr ')'  { add_instruction (TANH); }
+     | TANH '(' expr ')' { add_instruction (TANH); }
+     | ARCTAN expr       { add_instruction (ARCTAN); } //arctangente
+     | ARCSIN expr       { add_instruction (ARCSIN); } //arcsinus
+     | ARCCOS expr       { add_instruction (ARCCOS); } //arccosinus
      | EXP '(' expr ')'  { add_instruction (EXP); }
      | '(' expr ')'      {  }
      | expr ADD expr     { add_instruction (ADD); }
      | expr SUB expr     { add_instruction (SUB); }   		
      | expr MULT expr    { add_instruction (MULT); }		
-     | expr DIV expr     { add_instruction (DIV); }   
+     | expr DIV expr     { add_instruction (DIV); }
+     | expr POW expr     { add_instruction (POW); }  //puissance
+     | FACT expr         { add_instruction (FACT);}  //factorielle
+     | EXP expr          { add_instruction (EXP); }  //exponentielle
+     | LOG expr          { add_instruction (LOG); }  //logarithme
+     | LN expr           { add_instruction (LN);  }  //logarithmeNeperien   
      | HASARD '(' expr  expr ')'   { add_instruction (HASARD); }
 
 
@@ -185,7 +200,18 @@ int yyerror(char *s) {
 string print_code(int ins) {
   switch (ins) {
     case ADD      : return "ADD";
-    case MULT     : return "MUL";    
+    case MULT     : return "MUL"; 
+    case POW      : return "POW";    //puissance
+    case FACT     : return "FACT";   //factorielle
+    case EXP      : return "EXP";    //exponentielle
+    case LOG      : return "LOG";    //logarithme
+    case LN       : return "LN";     //logarithmeNeperien
+    case SIN      : return "SIN";    //sinus
+    case COS      : return "COS";    //cosinus
+    case TAN      : return "TAN";    //tangente
+    case ARCSIN   : return "ARCSIN"; //arcsinus
+    case ARCCOS   : return "ARCCOS"; //arccosinus
+    case ARCTAN   : return "ARCTAN"; //arctangente   
     case NUM      : return "NUM";
     case VAR      : return "VAR";
     case PRINT    : return "OUT";
@@ -252,6 +278,56 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             pile.pop();
 
             pile.push(r1/r2);
+            ic++;
+          break;
+
+        case POW:               //puissance
+            r1 = pile.top();    
+            pile.pop();
+
+            r2 = pile.top();    
+            pile.pop();
+
+            pile.push(pow(r2,r1));
+            ic++;
+          break;
+
+        /* case FACT:              //factorielle
+            r1 = pile.top();    
+            pile.pop(); 
+            
+            double factorial(r1){
+              if(r1>1){
+                return factorial(r1-1)*r1;
+              }
+              return 1;
+            }
+            pile.push(factorial(r1));
+            ic++;
+          break; 
+        */
+
+        case EXP:               //exponentielle
+            r1 = pile.top();    
+            pile.pop(); 
+
+            pile.push(exp(r1));
+            ic++;
+          break;
+
+        case LOG:               //logarithme
+            r1 = pile.top();    
+            pile.pop(); 
+
+            pile.push(log10(r1));
+            ic++;
+          break;
+
+        case LN:                //logarithmeNeperien
+            r1 = pile.top();    
+            pile.pop(); 
+
+            pile.push(log(r1));
             ic++;
           break;
 
@@ -327,6 +403,30 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             pile.pop();
 
             pile.push(tan(r1));
+            ic++;
+          break;
+
+        case ARCSIN:               //arcsinus
+            r1 = pile.top();    
+            pile.pop(); 
+
+            pile.push(asin(r1));
+            ic++;
+          break;
+        
+        case ARCCOS:               //arccosinus
+            r1 = pile.top();    
+            pile.pop(); 
+
+            pile.push(acos(r1));
+            ic++;
+          break;
+        
+         case ARCTAN:               //arctangente
+            r1 = pile.top();    
+            pile.pop(); 
+
+            pile.push(atan(r1));
             ic++;
           break;
 

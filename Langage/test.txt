@@ -15,4 +15,4 @@ Alors
 Sinon
 	Imprime 1+6*7
 FinSi
-Imprime cosh(5)
+Imprime exp(5)

@@ -22,6 +22,14 @@ Cos|COS|cos|cosinus|Cosinus|COSINUS { return COS;  }
 Cosh|COSH|cosh|cosinush|Cosinush|COSINUSH {return COSH;}
 Tan|TAN|tan|tangente|Tangente|TANGENTE { return TAN;  }
 Tanh|TANH|tanh|tangenteh|Tangenteh|TANGENTEH {return TANH;}
+ArcSin|Arcsin|ARCSIN|arcsin|arcsinus|arcSinus|ARCSINUS { return ARCSIN;  } //arcsin
+ArcCos|Arccos|ARCCOS|arccos|arccosinus|arcCosinus|ARCCOS { return ARCCOS;  } //arccos
+ArcTan|ARCTAN|arctan|arctangente|ArcTangente|ARCTANGENTE { return ARCTAN;}  //arctan
+puissance|Puissance|PUISSANCE|"^" { return POW;} //puissance
+factorielle|Factorielle|fact|Fact|FACT|"!"  { return FACT;} //factorielle
+exponentielle|Exponentielle|exp|Exp|EXP { return EXP;} //exponentielle
+logarithme|Logarithme|log|Log { return LOG;} //logarithme
+logarithmeneperien|LogarithmeNeperien|Logarithmeneperien|logarithmeNeperien|ln|Ln { return LN;} //logarithmeNeperien
 pi|Pi|PI { return PI;}
 un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }
