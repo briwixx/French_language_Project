@@ -80,6 +80,8 @@
 %token ARCCOS //arccosinus
 %token ARCTAN //arctan
 %token <adresse> SI
+%token <adresse> TANT_QUE
+%token FIN_TANT_QUE
 %token ALORS
 %token SINON
 %token FINSI
@@ -219,8 +221,6 @@ stack<double> pile;
 
 int ic = 0;  //compteur instruction
 double r1, r2;  //des registres
-
-printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le reste ?\n");
 
   while (ic < code_genere.size()){   //tant que nous ne sommes pas à la fin du programme
       auto ins = code_genere[ic];

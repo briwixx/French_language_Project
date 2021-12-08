@@ -73,28 +73,31 @@ extern int yydebug;
     ARCCOS = 264,                  /* ARCCOS  */
     ARCTAN = 265,                  /* ARCTAN  */
     SI = 266,                      /* SI  */
-    ALORS = 267,                   /* ALORS  */
-    SINON = 268,                   /* SINON  */
-    FINSI = 269,                   /* FINSI  */
-    SUP = 270,                     /* SUP  */
-    SUPEQ = 271,                   /* SUPEQ  */
-    INF = 272,                     /* INF  */
-    INFEQ = 273,                   /* INFEQ  */
-    PRINT = 274,                   /* PRINT  */
-    ASSIGN = 275,                  /* ASSIGN  */
-    GOTO = 276,                    /* GOTO  */
-    LABEL = 277,                   /* LABEL  */
-    JMP = 278,                     /* JMP  */
-    JMPCOND = 279,                 /* JMPCOND  */
-    POW = 280,                     /* POW  */
-    FACT = 281,                    /* FACT  */
-    EXP = 282,                     /* EXP  */
-    LOG = 283,                     /* LOG  */
-    LN = 284,                      /* LN  */
-    ADD = 285,                     /* ADD  */
-    SUB = 286,                     /* SUB  */
-    MULT = 287,                    /* MULT  */
-    DIV = 288                      /* DIV  */
+    TANT_QUE = 267,                /* TANT_QUE  */
+    FIN_TANT_QUE = 268,            /* FIN_TANT_QUE  */
+    ALORS = 269,                   /* ALORS  */
+    SINON = 270,                   /* SINON  */
+    FINSI = 271,                   /* FINSI  */
+    SUP = 272,                     /* SUP  */
+    SUPEQ = 273,                   /* SUPEQ  */
+    INF = 274,                     /* INF  */
+    INFEQ = 275,                   /* INFEQ  */
+    PRINT = 276,                   /* PRINT  */
+    ASSIGN = 277,                  /* ASSIGN  */
+    GOTO = 278,                    /* GOTO  */
+    LABEL = 279,                   /* LABEL  */
+    JMP = 280,                     /* JMP  */
+    JMPCOND = 281,                 /* JMPCOND  */
+    POW = 282,                     /* POW  */
+    FACT = 283,                    /* FACT  */
+    EXP = 284,                     /* EXP  */
+    LOG = 285,                     /* LOG  */
+    LN = 286,                      /* LN  */
+    HASARD = 287,                  /* HASARD  */
+    ADD = 288,                     /* ADD  */
+    SUB = 289,                     /* SUB  */
+    MULT = 290,                    /* MULT  */
+    DIV = 291                      /* DIV  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -109,7 +112,7 @@ union YYSTYPE
   char nom[50];
   type_adresse adresse;
 
-#line 113 "langage.bison.hpp"
+#line 116 "langage.bison.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
