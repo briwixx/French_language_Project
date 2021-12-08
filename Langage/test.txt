@@ -15,4 +15,4 @@ Alors
 Sinon
 	Imprime 1+6*7
 FinSi
-Imprime exp(5)
+Imprime fact(5)

@@ -77,22 +77,23 @@ extern int yydebug;
     SUPEQ = 277,
     INF = 278,
     INFEQ = 279,
-    PRINT = 280,
-    ASSIGN = 281,
-    GOTO = 282,
-    LABEL = 283,
-    JMP = 284,
-    JMPCOND = 285,
-    POW = 286,
-    FACT = 287,
-    EXP = 288,
-    LOG = 289,
-    LN = 290,
-    HASARD = 291,
-    ADD = 292,
-    SUB = 293,
-    MULT = 294,
-    DIV = 295
+    ABS = 280,
+    PRINT = 281,
+    ASSIGN = 282,
+    GOTO = 283,
+    LABEL = 284,
+    JMP = 285,
+    JMPCOND = 286,
+    POW = 287,
+    FACT = 288,
+    EXP = 289,
+    LOG = 290,
+    LN = 291,
+    HASARD = 292,
+    ADD = 293,
+    SUB = 294,
+    MULT = 295,
+    DIV = 296
   };
 #endif
 
@@ -107,7 +108,7 @@ union YYSTYPE
   char nom[50];
   type_adresse adresse;  
 
-#line 111 "langage.bison.hpp" /* yacc.c:1909  */
+#line 112 "langage.bison.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

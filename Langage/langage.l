@@ -30,6 +30,7 @@ factorielle|Factorielle|fact|Fact|FACT|"!"  { return FACT;} //factorielle
 exponentielle|Exponentielle|exp|Exp|EXP { return EXP;} //exponentielle
 logarithme|Logarithme|log|Log { return LOG;} //logarithme
 logarithmeneperien|LogarithmeNeperien|Logarithmeneperien|logarithmeNeperien|ln|Ln { return LN;} //logarithmeNeperien
+ABS|abs|Abs { return ABS; }
 pi|Pi|PI { return PI;}
 un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }

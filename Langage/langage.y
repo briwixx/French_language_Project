@@ -94,6 +94,7 @@
 %token SUPEQ
 %token INF
 %token INFEQ
+%token ABS
 %token PRINT
 %token ASSIGN
 %token GOTO
@@ -179,6 +180,7 @@ expr:  NUM               { add_instruction (NUM, $1); }
      | EXP expr          { add_instruction (EXP); }  //exponentielle
      | LOG expr          { add_instruction (LOG); }  //logarithme
      | LN expr           { add_instruction (LN);  }  //logarithmeNeperien   
+     | ABS '(' expr ')'  { add_instruction (ABS); }
      | HASARD '(' expr  expr ')'   { add_instruction (HASARD); }
 
 
@@ -194,6 +196,14 @@ int yyerror(char *s) {
     printf("%s : %s\n", s, yytext);
 }
 
+//Fonction factorielle
+int fact(const int n)
+{
+    int res = 1;
+    for(int i = 2; i <= n; i++)
+        res*=i;
+    return res;
+}
 
 // Petite fonction pour mieux voir le code généré 
 // (au lieu des nombres associés au tokens)
@@ -212,6 +222,7 @@ string print_code(int ins) {
     case ARCSIN   : return "ARCSIN"; //arcsinus
     case ARCCOS   : return "ARCCOS"; //arccosinus
     case ARCTAN   : return "ARCTAN"; //arctangente   
+    case ABS      : return "ABS";
     case NUM      : return "NUM";
     case VAR      : return "VAR";
     case PRINT    : return "OUT";
@@ -292,20 +303,13 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             ic++;
           break;
 
-        /* case FACT:              //factorielle
+         case FACT:              //factorielle
             r1 = pile.top();    
             pile.pop(); 
-            
-            double factorial(r1){
-              if(r1>1){
-                return factorial(r1-1)*r1;
-              }
-              return 1;
-            }
-            pile.push(factorial(r1));
+            pile.push(fact(r1));
             ic++;
           break; 
-        */
+        
 
         case EXP:               //exponentielle
             r1 = pile.top();    
@@ -422,11 +426,18 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             ic++;
           break;
         
-         case ARCTAN:               //arctangente
+        case ARCTAN:               //arctangente
             r1 = pile.top();    
             pile.pop(); 
 
             pile.push(atan(r1));
+            ic++;
+          break;
+
+        case ABS:
+            r1 = pile.top();    // Rrécupérer la tête de pile;
+            pile.pop();
+            pile.push(abs(r1));
             ic++;
           break;
 
