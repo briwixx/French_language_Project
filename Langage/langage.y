@@ -84,6 +84,7 @@
 %token ARCSIN //arcsinus
 %token ARCCOS //arccosinus
 %token ARCTAN //arctan
+%token SQRT   //racine
 %token <adresse> SI
 %token <adresse> TANT_QUE
 %token FIN_TANT_QUE
@@ -96,7 +97,9 @@
 %token SUPEQ
 %token INF
 %token INFEQ
+%token ISEQ
 %token ABS
+%token MOD
 %token PRINT
 %token ASSIGN
 %token GOTO
@@ -120,7 +123,7 @@ bloc:  /* Epsilon */
 label : // Epsilon
       | LABEL ':'  { // Lorsque je rencontre un label
                      // je stocke le numéro d'instruction actelle
-                     // dans la table des adresses. C'est tout!   
+                     // dans la table des adresses.   
                      adresses [$1] = ic;}
 
 instruction :   /* Epsilon, ligne vide */
@@ -169,7 +172,7 @@ instruction :   /* Epsilon, ligne vide */
 
 
 expr:  NUM               { add_instruction (NUM, $1); }
-     |PI                 { add_instruction (NUM, 3.14159265359);}
+     | PI                { add_instruction (NUM, 3.14159265359);}
      | VAR               { add_instruction (VAR, 0, $1); }
      | SIN '(' expr ')'  { add_instruction (SIN); }
      | SINH '(' expr ')' { add_instruction (SINH); }
@@ -187,11 +190,13 @@ expr:  NUM               { add_instruction (NUM, $1); }
      | expr MULT expr    { add_instruction (MULT); }		
      | expr DIV expr     { add_instruction (DIV); }
      | expr POW expr     { add_instruction (POW); }  //puissance
+     | expr MOD expr     { add_instruction (MOD); }
      | FACT expr         { add_instruction (FACT);}  //factorielle
      | EXP expr          { add_instruction (EXP); }  //exponentielle
      | LOG expr          { add_instruction (LOG); }  //logarithme
      | LN expr           { add_instruction (LN);  }  //logarithmeNeperien   
      | ABS '(' expr ')'  { add_instruction (ABS); }
+     | SQRT '(' expr ')' { add_instruction (SQRT); }  //racine
      | HASARD '(' expr  expr ')'   { add_instruction (HASARD); }
 
 
@@ -200,6 +205,7 @@ condition :  expr             { }
           |  expr SUPEQ expr  { add_instruction (SUPEQ); }
           |  expr INF expr    { add_instruction (INF); }
           |  expr INFEQ expr  { add_instruction (INFEQ); }
+          |  expr ISEQ expr   { add_instruction (ISEQ); }
 
 %%
 
@@ -253,8 +259,6 @@ stack<double> pile;
 
 int ic = 0;  // compteur instruction
 double r1, r2;  // des registres
-
-printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le reste ?\n");
 
   while (ic < code_genere.size()){   // tant que nous ne sommes pas à la fin du programme
       auto ins = code_genere[ic];
@@ -390,6 +394,17 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             ic++;
           break;
 
+        case ISEQ:
+            r1 = pile.top();    // Récuperer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Récuperer la tête de pile;
+            pile.pop();
+
+            pile.push(r1==r2);
+            ic++;
+          break;
+
         case SIN:
             r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
@@ -452,6 +467,22 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
             ic++;
           break;
 
+        case SQRT:
+            r1 = pile.top();
+            pile.pop();
+            pile.push(sqrt(r1));
+            ic++;
+          break;
+
+        case MOD:
+            r1 = pile.top();
+            pile.pop();
+            r2 = pile.top();
+            pile.pop();
+            pile.push(fmod(r2, r1));
+            ic++;
+          break;
+
         case ASSIGN:
             r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
@@ -462,7 +493,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
         case PRINT:
             r1 = pile.top();    // Récuperer la tête de pile;
             pile.pop();
-            cout << "$ " << r1 << endl; 
+            cout << "→ " << r1 << endl; 
             ic++;
         break;
 
@@ -472,10 +503,9 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
           break;
 
         case JMP:
-            if (ins.value != -999) // Est-ce un GoTo ?
+            if (ins.value != -999) 
               ic = ins.value;
             else
-              // je récupère l'adresse à partir de la table
               ic = adresses[ins.name];
           break;
 
@@ -493,18 +523,16 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
 
             r2 = pile.top();    // Récupérer la tête de pile;
             pile.pop();
-            // (rand() % (r1 - r2 + 1)) + r2
             pile.push((rand() % (int)(r1 - r2 + 1)) + r2);
             ic++;
           break;
 
         case VAR:    // je consulte la table de symbole et j'empile la valeur de la variable
-             // Si elle existe bien sur... 
             try {
                 pile.push(variables.at(ins.name));
                 ic++;
             }
-          catch(...) {
+            catch(...) {
                 variables[ins.name] = 0;
                 pile.push(variables.at(ins.name));
                 ic++;
@@ -515,7 +543,7 @@ printf("C'est quoi la réponse à la grande question sur la vie, l'univers et le
 }
 
 int main(int argc, char **argv) {
-  printf("-----------------\nLangage V3.0 / Deep Thought\n");
+  printf("-----------------\nParseur Cédille++ en exécution !\n");
 
   // Code pour traiter un fichier au lieu de l'entrée clavier
   if ( argc > 1 )
@@ -525,7 +553,7 @@ int main(int argc, char **argv) {
 
   yyparse();
 
-
+/*  //FOR DEBUG PORPOSES
   for (int i = 0; i < code_genere.size(); i++){
     auto instruction = code_genere [i];
     cout << i 
@@ -537,7 +565,7 @@ int main(int argc, char **argv) {
          << instruction.name 
          << endl;
   }
-
+*/
   execution(code_genere, variables);
 
   return 0;

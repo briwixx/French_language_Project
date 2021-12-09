@@ -1,0 +1,5 @@
+cote1AngleDroit = 5
+cote2AngleDroit = 7
+
+hypothenuse = Racine((cote1AngleDroit puissance 2) + (cote2AngleDroit puissance 2))
+Imprime hypothenuse

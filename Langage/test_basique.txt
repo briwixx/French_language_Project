@@ -5,7 +5,7 @@ Imprime Hasard(1 80)
 x = 3
 Imprime x
 
-Si (x>2)
+Si (x==3)
 Alors
 	Imprime 10-9
 	Tant_que (x<10)
@@ -16,4 +16,5 @@ Sinon
 	Imprime 1+6*7
 FinSi
 Imprime fact(5)
+Imprime deux
 

@@ -67,35 +67,38 @@ extern int yydebug;
     ARCSIN = 267,
     ARCCOS = 268,
     ARCTAN = 269,
-    SI = 270,
-    TANT_QUE = 271,
-    FIN_TANT_QUE = 272,
-    POUR = 273,
-    FIN_POUR = 274,
-    ALORS = 275,
-    SINON = 276,
-    FINSI = 277,
-    SUP = 278,
-    SUPEQ = 279,
-    INF = 280,
-    INFEQ = 281,
-    ABS = 282,
-    PRINT = 283,
-    ASSIGN = 284,
-    GOTO = 285,
-    LABEL = 286,
-    JMP = 287,
-    JMPCOND = 288,
-    POW = 289,
-    FACT = 290,
-    EXP = 291,
-    LOG = 292,
-    LN = 293,
-    HASARD = 294,
-    ADD = 295,
-    SUB = 296,
-    MULT = 297,
-    DIV = 298
+    SQRT = 270,
+    SI = 271,
+    TANT_QUE = 272,
+    FIN_TANT_QUE = 273,
+    POUR = 274,
+    FIN_POUR = 275,
+    ALORS = 276,
+    SINON = 277,
+    FINSI = 278,
+    SUP = 279,
+    SUPEQ = 280,
+    INF = 281,
+    INFEQ = 282,
+    ISEQ = 283,
+    ABS = 284,
+    MOD = 285,
+    PRINT = 286,
+    ASSIGN = 287,
+    GOTO = 288,
+    LABEL = 289,
+    JMP = 290,
+    JMPCOND = 291,
+    POW = 292,
+    FACT = 293,
+    EXP = 294,
+    LOG = 295,
+    LN = 296,
+    HASARD = 297,
+    ADD = 298,
+    SUB = 299,
+    MULT = 300,
+    DIV = 301
   };
 #endif
 
@@ -110,7 +113,7 @@ union YYSTYPE
   char nom[50];
   type_adresse adresse;  
 
-#line 114 "langage.bison.hpp" /* yacc.c:1909  */
+#line 117 "langage.bison.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

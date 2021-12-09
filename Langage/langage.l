@@ -30,14 +30,29 @@ factorielle|Factorielle|fact|Fact|FACT|"!"  { return FACT;} //factorielle
 exponentielle|Exponentielle|exp|Exp|EXP { return EXP;} //exponentielle
 logarithme|Logarithme|log|Log { return LOG;} //logarithme
 logarithmeneperien|LogarithmeNeperien|Logarithmeneperien|logarithmeNeperien|ln|Ln { return LN;} //logarithmeNeperien
-ABS|abs|Abs { return ABS; }
+Absolue|absolue|ABS|abs|Abs { return ABS; }
+Racine|racine|sqrt|SQRT { return SQRT; }
+Modulo|modulo|MODULO { return MOD; }
 pi|Pi|PI { return PI;}
 un      { yylval.valeur = 1. ; return NUM; }
 deux    { yylval.valeur = 2. ; return NUM; }
 trois   { yylval.valeur = 3. ; return NUM; }
+quatre	{ yylval.valeur = 4. ; return NUM; }
+cinq	  { yylval.valeur = 5. ; return NUM; }
+six	    { yylval.valeur = 6. ; return NUM; }
+sept	{ yylval.valeur = 7. ; return NUM; }
+huit	{ yylval.valeur = 8. ; return NUM; }
+neuf	{ yylval.valeur = 9. ; return NUM; }
+dix	    { yylval.valeur = 10. ; return NUM; }
+onze	  { yylval.valeur = 11. ; return NUM; }
+douze	  { yylval.valeur = 12. ; return NUM; }
+treize	{ yylval.valeur = 13. ; return NUM; }
+quatorze	{ yylval.valeur = 14. ; return NUM; }
+quinze	{ yylval.valeur = 15. ; return NUM; }
+seize	  { yylval.valeur = 16. ; return NUM; }
 plus    { return ADD;}
 fois    { return MULT; }
-Si      { return SI;}
+Si      { return SI; }
 Tant_que  { return TANT_QUE; }
 Fin_tant_que  { return FIN_TANT_QUE; }
 Pour      { return POUR; }
@@ -46,7 +61,7 @@ Alors   { return ALORS;}
 Sinon   { return SINON;}
 FinSi   { return FINSI;}
 Imprime { return PRINT;}
-GoTo    { return GOTO;} 
+AllerA    { return GOTO;} 
 Hasard  { return HASARD; }
 
 @[A-Za-z_][A-Za-z_0-9]* { strcpy( yylval.nom, yytext) ;
@@ -62,6 +77,7 @@ Hasard  { return HASARD; }
 "-"    {  return SUB; }
 "*"    {  return MULT; }
 "/"    {  return DIV; }
+"=="   { return ISEQ; }
 "="|"<-"    {  return '='; }
 ">"    { return SUP; }
 "<"    { return INF; }

@@ -1,0 +1,20 @@
+nombre = 7
+casParticulier = 2
+compteur = 1
+
+Tant_que (compteur <= nombre)
+    Si ((nombre modulo compteur) == 0)
+    Alors
+        casParticulier = casParticulier + 1
+    Sinon
+        casParticulier = casParticulier + 0
+    FinSi
+nombre = nombre + 1
+Fin_tant_que
+
+Si (casParticulier == 2)
+Alors
+    Imprime 1+1
+Sinon
+    Imprime 0+1
+FinSi
