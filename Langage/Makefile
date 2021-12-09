@@ -3,4 +3,4 @@ all:
 	bison -d langage.y -o langage.bison.cpp
 	flex -o langage.lex.cpp langage.l
 	g++ -w langage.lex.cpp langage.bison.cpp -o langage
-	./langage premiers.txt
+	./langage nbrshasard.txt

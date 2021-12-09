@@ -78,6 +78,7 @@ Hasard  { return HASARD; }
 "*"    {  return MULT; }
 "/"    {  return DIV; }
 "=="   { return ISEQ; }
+"!="   { return ISDIFF; }
 "="|"<-"    {  return '='; }
 ">"    { return SUP; }
 "<"    { return INF; }

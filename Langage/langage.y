@@ -98,6 +98,7 @@
 %token INF
 %token INFEQ
 %token ISEQ
+%token ISDIFF
 %token ABS
 %token MOD
 %token PRINT
@@ -206,6 +207,7 @@ condition :  expr             { }
           |  expr INF expr    { add_instruction (INF); }
           |  expr INFEQ expr  { add_instruction (INFEQ); }
           |  expr ISEQ expr   { add_instruction (ISEQ); }
+          |  expr ISDIFF expr { add_instruction (ISDIFF); }
 
 %%
 
@@ -402,6 +404,17 @@ double r1, r2;  // des registres
             pile.pop();
 
             pile.push(r1==r2);
+            ic++;
+          break;
+
+        case ISDIFF:
+            r1 = pile.top();    // Récuperer la tête de pile;
+            pile.pop();
+
+            r2 = pile.top();    // Récuperer la tête de pile;
+            pile.pop();
+
+            pile.push(r2!=r1);
             ic++;
           break;
 
