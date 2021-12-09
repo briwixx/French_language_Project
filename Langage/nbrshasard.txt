@@ -4,7 +4,7 @@ iterateur = 0
 minimum = 5
 maximum = 80
 
-Tant_que (iterateur <= nombresAGenerer)
+TaNtqUe (iterateur <= nombresAGenerer)
     Imprime Hasard(minimum maximum)
     iterateur = iterateur + 1
 Fin_tant_que

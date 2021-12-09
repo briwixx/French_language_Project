@@ -1,0 +1,19 @@
+temp1 = 1
+temp2 = 1
+
+debut = 5
+fin = 40
+
+x = 0
+
+Tant_que (temp1 inferieur a fin)
+    x = temp1
+    temp1 = temp2 + temp1
+    temp2 = x
+
+    Si (temp1 superieur a ou egal debut)
+    Alors
+        Imprime temp1
+    Sinon
+    FinSi
+Fin_tant_que

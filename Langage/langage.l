@@ -16,53 +16,53 @@
 \r     { }
 " "    { }
 \t     { }
-Sin|SIN|sin|sinus|Sinus|SINUS { return SIN;  }
-Sinh|SINH|sinh|sinush|Sinush|SINUSH { return SINH;  }
-Cos|COS|cos|cosinus|Cosinus|COSINUS { return COS;  }
-Cosh|COSH|cosh|cosinush|Cosinush|COSINUSH {return COSH;}
-Tan|TAN|tan|tangente|Tangente|TANGENTE { return TAN;  }
-Tanh|TANH|tanh|tangenteh|Tangenteh|TANGENTEH {return TANH;}
-ArcSin|Arcsin|ARCSIN|arcsin|arcsinus|arcSinus|ARCSINUS { return ARCSIN;  } //arcsin
-ArcCos|Arccos|ARCCOS|arccos|arccosinus|arcCosinus|ARCCOS { return ARCCOS;  } //arccos
-ArcTan|ARCTAN|arctan|arctangente|ArcTangente|ARCTANGENTE { return ARCTAN;}  //arctan
-puissance|Puissance|PUISSANCE|"^" { return POW;} //puissance
-factorielle|Factorielle|fact|Fact|FACT|"!"  { return FACT;} //factorielle
-exponentielle|Exponentielle|exp|Exp|EXP { return EXP;} //exponentielle
-logarithme|Logarithme|log|Log { return LOG;} //logarithme
-logarithmeneperien|LogarithmeNeperien|Logarithmeneperien|logarithmeNeperien|ln|Ln { return LN;} //logarithmeNeperien
-Absolue|absolue|ABS|abs|Abs { return ABS; }
-Racine|racine|sqrt|SQRT { return SQRT; }
-Modulo|modulo|MODULO { return MOD; }
-pi|Pi|PI { return PI;}
-un      { yylval.valeur = 1. ; return NUM; }
-deux    { yylval.valeur = 2. ; return NUM; }
-trois   { yylval.valeur = 3. ; return NUM; }
-quatre	{ yylval.valeur = 4. ; return NUM; }
-cinq	  { yylval.valeur = 5. ; return NUM; }
-six	    { yylval.valeur = 6. ; return NUM; }
-sept	{ yylval.valeur = 7. ; return NUM; }
-huit	{ yylval.valeur = 8. ; return NUM; }
-neuf	{ yylval.valeur = 9. ; return NUM; }
-dix	    { yylval.valeur = 10. ; return NUM; }
-onze	  { yylval.valeur = 11. ; return NUM; }
-douze	  { yylval.valeur = 12. ; return NUM; }
-treize	{ yylval.valeur = 13. ; return NUM; }
-quatorze	{ yylval.valeur = 14. ; return NUM; }
-quinze	{ yylval.valeur = 15. ; return NUM; }
-seize	  { yylval.valeur = 16. ; return NUM; }
-plus    { return ADD;}
-fois    { return MULT; }
-Si      { return SI; }
-Tant_que  { return TANT_QUE; }
-Fin_tant_que  { return FIN_TANT_QUE; }
-Pour      { return POUR; }
-Fin_Pour  { return FIN_POUR; }
-Alors   { return ALORS;}
-Sinon   { return SINON;}
-FinSi   { return FINSI;}
-Imprime { return PRINT;}
-AllerA    { return GOTO;} 
-Hasard  { return HASARD; }
+
+[Ss][In][Nn]([Uu][Ss])? { return SIN;  }
+[Ss][In][Nn]([Hh])?([Uu][Ss][Hh])? { return SINH;  }
+[Cc][Oo][Ss]([In][Nn][Uu][Ss])? { return COS;  }
+[Cc][Oo][Ss][Hh]?([In][Nn][Uu][Ss][Hh])? {return COSH;}
+[Tt][Aa][Nn]([Gg][Ee][Nn][Tt][Ee])? { return TAN;  }
+[Tt][Aa][Nn][Hh]([Gg][Ee][Nn][Tt][Ee][Hh])? {return TANH;}
+[Aa][Rr][Cc][Ss][In][Nn]([Uu][Ss])? { return ARCSIN;  }
+[Aa][Rr][Cc][Oo][Ss]([In][Nn][Uu][Ss])? { return ARCCOS;  }
+[Aa][Rr][Cc][Tt][Aa][Nn]([Gg][Ee][Nn][Tt][Ee])? { return ARCTAN;}  
+[Pp][Uu][Ii][Ss]{2}[Aa][Nn][Cc][Ee]|"^" { return POW;}
+[Ff][Aa][Cc][Tt]([Oo][Rr][Ii][Ee][Ll]{2}[Ee])?|"!"  { return FACT;}
+[Ee][Xx][Pp]([Oo][Nn][Ee][Nn][Tt][Ii][Ee][Ll]{2}[Ee])? { return EXP;}
+[Ll][Oo][Gg]([Aa][Rr][Ii][Tt][Hh][Mm][Ee])? { return LOG;}
+[Ll][Oo][Gg][Aa][Rr][Ii][Tt][Mm][Ee]([ ]|[_])?[Nn][Ee][Pp][Ee][Rr][Ii][Ee][Nn]|[Ll][Nn] { return LN;}
+[Aa][Bb][Ss]([Oo][Ll][Uu][Ee])? { return ABS; }
+[Rr][Aa][Cc][Ii][Nn][Ee](([ ]|[_])?[Cc][Aa][Rr]{2}[Ee]{2})? { return SQRT; }
+[Mm][Oo][Dd][Uu][Ll][Oo] { return MOD; }
+[Pp][Ii] { return PI;}
+
+[Uu][Nn]      { yylval.valeur = 1. ; return NUM; }
+[Dd][Ee][Uu][Xx]    { yylval.valeur = 2. ; return NUM; }
+[Tt][Rr][Oo][Ii][Ss]   { yylval.valeur = 3. ; return NUM; }
+[Qq][Uu][Aa][Tt][Rr][Ee]	{ yylval.valeur = 4. ; return NUM; }
+[Cc][Ii][Nn][Qq]	  { yylval.valeur = 5. ; return NUM; }
+[Ss][Ii][Xx]	    { yylval.valeur = 6. ; return NUM; }
+[Ss][Ee][Pp][Tt]	{ yylval.valeur = 7. ; return NUM; }
+[Hh][Uu][Ii][Tt]	{ yylval.valeur = 8. ; return NUM; }
+[Nn][Ee][Uu][Ff]	{ yylval.valeur = 9. ; return NUM; }
+[Dd][Ii][Xx]	    { yylval.valeur = 10. ; return NUM; }
+[Oo][Nn][Zz][Ee]	  { yylval.valeur = 11. ; return NUM; }
+[Dd][Oo][Uu][Zz][Ee]	  { yylval.valeur = 12. ; return NUM; }
+[Tt][Rr][Ee][Ii][Zz][Ee]	{ yylval.valeur = 13. ; return NUM; }
+[Qq][Uu][Aa][Tt][Oo][Rr][Zz][Ee]	{ yylval.valeur = 14. ; return NUM; }
+[Qq][Uu][Ii][Nn][Zz][Ee]	{ yylval.valeur = 15. ; return NUM; }
+[Ss][Ee][Ii][Zz][Ee]	  { yylval.valeur = 16. ; return NUM; }
+[Ss][Ii]      { return SI; }
+[Tt][Aa][Nn][Tt]([ ]|[_])?[Qq][Uu][Ee]  { return TANT_QUE; }
+[Ff][Ii][Nn]([ ]|[_])?[Tt][Aa][Nn][Tt]([ ]|[_])?[Qq][Uu][Ee]  { return FIN_TANT_QUE; }
+[Pp][Oo][Uu][Rr]      { return POUR; }
+[Ff][Ii][Nn]([_]|[ ])?[Pp][Oo][Uu][Rr]  { return FIN_POUR; }
+[Aa][Ll][Oo][Rr][Ss]   { return ALORS;}
+[Ss][Ii][Nn][Oo][Nn]   { return SINON;}
+[Ff][Ii][Nn]([ ]|[_])?[Ss][Ii]   { return FINSI;}
+[Ii][Mm][Pp][Rr][Ii][Mm][Ee] { return PRINT;}
+[Aa][Ll]{2}[Ee][Rr]([ ]|[_])?[Aa]    { return GOTO;} 
+[Hh][Aa][Ss][Aa][Rr][Dd]  { return HASARD; }
 
 @[A-Za-z_][A-Za-z_0-9]* { strcpy( yylval.nom, yytext) ;
                           return LABEL;
@@ -73,17 +73,17 @@ Hasard  { return HASARD; }
                          return VAR;
                        }
 
-\+     {  return ADD; }  
-"-"    {  return SUB; }
-"*"    {  return MULT; }
-"/"    {  return DIV; }
+\+|[Pp][Ll][Uu][Ss]     {  return ADD; }  
+"-"|[Mm][Oo][Ii][Nn][Ss]    {  return SUB; }
+"*"|[Ff][Oo][Ii][Ss]   {  return MULT; }
+"/"|[Dd][Ii][Vv][Ii][Ss][Ee]    {  return DIV; }
 "=="   { return ISEQ; }
-"!="   { return ISDIFF; }
+"!="|[Dd][Ii][Ff]{2}[Ee][Rr][Ee][Nn][Tt]   { return ISDIFF; }
 "="|"<-"    {  return '='; }
-">"    { return SUP; }
-"<"    { return INF; }
-">="   { return SUPEQ; }
-"<="   { return INFEQ; }
+">"|[Ss][Uu][Pp][Ee][Rr][Ii][Ee][Uu][Rr]([ ]|[_])?[Aa]    { return SUP; }
+"<"|[Ii][Nn][Ff][Ee][Rr][Ii][Ee][Uu][Rr]([ ]|[_])?[Aa]    { return INF; }
+">="|[Ss][Uu][Pp][Ee][Rr][Ii][Ee][Uu][Rr]([ ]|[_])?[Aa]([ ]|[_])?[Oo][Uu]([ ]|[_])?[Ee][Gg][Aa][Ll]   { return SUPEQ; }
+"<="|[Ii][Nn][Ff][Ee][Rr][Ii][Ee][Uu][Rr]([ ]|[_])?[Aa]([ ]|[_])?[Oo][Uu]([ ]|[_])?[Ee][Gg][Aa][Ll]   { return INFEQ; }
 ":"    { return ':'; }   
 \(     {  return '('; }
 \)     {  return ')'; }
